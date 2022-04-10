@@ -4,6 +4,7 @@ import * as d3 from "d3";
 import Graph from "./data/graph";
 import { useNavigate } from "react-router-dom";
 import Button from "./components/Button";
+import AsyncLocalStorage from "@createnextapp/async-local-storage";
 
 const SVG = () => {
   const width = 1800;
@@ -24,7 +25,7 @@ const SVG = () => {
   };
   useEffect(() => {
     const svg = d3
-      .select(".svg")
+      .select("div")
       .append("svg")
       .attr("width", width)
       .attr("height", height);
@@ -78,14 +79,10 @@ const SVG = () => {
       .style("fill", "no")
       .style("rx", 6)
       .attr("x", function (d, i) {
-        return localStorage.getItem(`rect${i}.rect${i}.dx`) !== null
-          ? localStorage.getItem(`rect${i}.rect${i}.dx`)
-          : d.x;
+        return d.x;
       })
       .attr("y", function (d, i) {
-        return localStorage.getItem(`rect${i}.rect${i}.dy`) !== null
-          ? localStorage.getItem(`rect${i}.rect${i}.dy`)
-          : d.y;
+        return d.y;
       })
       .call(d3.drag().on("drag", dragged));
 
@@ -414,34 +411,62 @@ const SVG = () => {
 
     async function dragged(event, d) {
       //   console.log('event', event);
-      console.log("d", d);
+      //   console.log('d', d);
       if (
         event.sourceEvent.target.id.length > 0 &&
         event.sourceEvent.target.id.split(".").length === 1
       ) {
-        console.log("before", d);
         d.x = event.x;
         d.y = event.y;
-        console.log("after", d);
-
         await setValForAtt(event.sourceEvent.target.id, d, event);
         d3.select(this).attr("x", d.x).attr("y", d.y);
-        console.log("|||||", this);
-        link
-          .filter(function (l) {
-            console.log("{{{{{{{{{{{{{", l.source, d, l.source === d);
-            return l.source === d;
-          })
-          .attr("x1", d.x + 70)
-          .attr("y1", d.y)
-          .filter(await setValForAtt("link1", d, event));
-        link
-          .filter(function (l) {
-            return l.target === d;
-          })
-          .attr("x2", d.x + 70)
-          .attr("y2", d.y + 10);
-        // .filter(await setValForAtt("link2", d, event));
+
+        // link
+        //   .filter(function (l) {
+        //     return l.source === d;
+        //   })
+        //   .attr("x1", d.x + 70)
+        //   .attr("y1", d.y)
+        //   .filter(await setValForAtt("link1", d, event));
+        // link
+        //   .filter(function (l) {
+        //     return l.target === d;
+        //   })
+        //   .attr("x2", d.x + 50)
+        //   .attr("y2", d.y + 10);
+        // .filter(await setValForAtt('link2', d, event));
+
+        if (event.sourceEvent.target.id === "rect0") {
+          link
+            .filter(function (l) {
+              return l.source === d;
+            })
+            .attr("x1", d.x + 70)
+            .attr("y1", d.y)
+            .filter(await setValForAtt("link1", d, event));
+          link
+            .filter(function (l) {
+              return l.target === d;
+            })
+            .attr("x2", d.x + 50)
+            .attr("y2", d.y + 10);
+          // .filter(await setValForAtt('link2', d, event));
+        } else {
+          link
+            .filter(function (l) {
+              return l.source === d;
+            })
+            .attr("x1", d.x + 70)
+            .attr("y1", d.y)
+            .filter(await setValForAtt("link1", d, event));
+          link
+            .filter(function (l) {
+              return l.target === d;
+            })
+            .attr("x2", d.x + 50)
+            .attr("y2", d.y + 10);
+          //   .filter(await setValForAtt('link2', d, event));
+        }
 
         text
           .filter((t) => t.source === d)
@@ -532,167 +557,166 @@ const SVG = () => {
           .filter(await setValForAtt("circleText6", d, event));
       }
     }
-
     async function setValForAtt(type, d, event) {
       if (type === "link1") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + ".link" + ".dx1",
           d.x + 70
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + ".link" + ".dy1",
           d.y
         );
       } else if (type === "link2") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + ".link" + ".dx2",
           d.x + 50
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + ".link" + ".dy2",
           d.y + 10
         );
       } else if (type === "text") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 40
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 20
         );
       } else if (type === "icons") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 2
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y - 2
         );
       } else if (type === "googleImg") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 85
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 40
         );
       } else if (type === "circle1") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 99
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 60
         );
       } else if (type === "circleText1") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 99
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 95
         );
       } else if (type === "circle2") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 140
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 60
         );
       } else if (type === "circleText2") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 140
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 95
         );
       } else if (type === "circle3") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 180
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 60
         );
       } else if (type === "circleText3") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 180
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 95
         );
       } else if (type === "circle4") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 15
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 60
         );
       } else if (type === "circleText4") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 15
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 95
         );
       } else if (type === "circle5") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 60
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 60
         );
       } else if (type === "circleText5") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 60
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 95
         );
       } else if (type === "circle6") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 220
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 60
         );
       } else if (type === "circleText6") {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x + 220
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y + 95
         );
       } else {
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dx",
           d.x
         );
-        localStorage.setItem(
+        await AsyncLocalStorage.setItem(
           event.sourceEvent.target.id + "." + type + ".dy",
           d.y
         );

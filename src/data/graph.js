@@ -2,8 +2,6 @@ import GoogleImg from "../images/google.png";
 import BlackIcon from "../images/black.png";
 import GreenIcon from "../images/green.png";
 import CircleImg from "../images/circle.png";
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
 
 export default {
   nodes: [
