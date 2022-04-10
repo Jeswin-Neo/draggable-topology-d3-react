@@ -2,31 +2,99 @@ import GoogleImg from "../images/google.png";
 import BlackIcon from "../images/black.png";
 import GreenIcon from "../images/green.png";
 import CircleImg from "../images/circle.png";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 export default {
   nodes: [
-    { x: 400, y: 175 },
-    { x: 200, y: 500 },
-    { x: 500, y: 500 },
-    { x: 800, y: 500 },
-    { x: 1100, y: 500 },
-    { x: 1400, y: 500 },
+    {
+      x:
+        localStorage.getItem("rect0.rect0.dx") !== null
+          ? localStorage.getItem("rect0.rect0.dx")
+          : 400,
+      y:
+        localStorage.getItem("rect0.rect0.dy") !== null
+          ? localStorage.getItem("rect0.rect0.dy")
+          : 175,
+    },
+    {
+      x:
+        localStorage.getItem("rect1.rect1.dx") !== null
+          ? localStorage.getItem("rect1.rect1.dx")
+          : 200,
+      y:
+        localStorage.getItem("rect1.rect1.dy") !== null
+          ? localStorage.getItem("rect1.rect1.dy")
+          : 500,
+    },
+    {
+      x:
+        localStorage.getItem("rect2.rect2.dx") !== null
+          ? localStorage.getItem("rect2.rect2.dx")
+          : 500,
+      y:
+        localStorage.getItem("rect2.rect2.dy") !== null
+          ? localStorage.getItem("rect2.rect2.dy")
+          : 500,
+    },
+    {
+      x:
+        localStorage.getItem("rect3.rect3.dx") !== null
+          ? localStorage.getItem("rect3.rect3.dx")
+          : 800,
+      y:
+        localStorage.getItem("rect3.rect3.dy") !== null
+          ? localStorage.getItem("rect3.rect3.dy")
+          : 500,
+    },
+    {
+      x:
+        localStorage.getItem("rect4.rect4.dx") !== null
+          ? localStorage.getItem("rect4.rect4.dx")
+          : 1100,
+      y:
+        localStorage.getItem("rect4.rect4.dy") !== null
+          ? localStorage.getItem("rect4.rect4.dy")
+          : 500,
+    },
+    {
+      x:
+        localStorage.getItem("rect5.rect5.dx") !== null
+          ? localStorage.getItem("rect5.rect5.dx")
+          : 1400,
+      y:
+        localStorage.getItem("rect5.rect5.dy") !== null
+          ? localStorage.getItem("rect5.rect5.dy")
+          : 500,
+    },
   ],
   content: [
     {
       image: BlackIcon,
       google: GoogleImg,
       text: "Google",
-      x: 400,
-      y: 175,
+      x:
+        localStorage.getItem("rect0.rect0.dx") !== null
+          ? localStorage.getItem("rect0.rect0.dx")
+          : 400,
+      y:
+        localStorage.getItem("rect0.rect0.dy") !== null
+          ? localStorage.getItem("rect0.rect0.dy")
+          : 175,
       source: 0,
       target: 0,
     },
     {
       image: GreenIcon,
       text: "New York-Sites",
-      x: 200,
-      y: 500,
+      x:
+        localStorage.getItem("rect1.rect1.dx") !== null
+          ? localStorage.getItem("rect1.rect1.dx")
+          : 200,
+      y:
+        localStorage.getItem("rect1.rect1.dy") !== null
+          ? localStorage.getItem("rect1.rect1.dy")
+          : 500,
       source: 1,
       target: 0,
       circle: { img1: CircleImg, text1: "Q2KN-M" },
@@ -34,8 +102,14 @@ export default {
     {
       image: GreenIcon,
       text: "New Jersey-Sites",
-      x: 500,
-      y: 500,
+      x:
+        localStorage.getItem("rect2.rect2.dx") !== null
+          ? localStorage.getItem("rect2.rect2.dx")
+          : 500,
+      y:
+        localStorage.getItem("rect2.rect2.dy") !== null
+          ? localStorage.getItem("rect2.rect2.dy")
+          : 500,
       source: 2,
       target: 0,
       circle: { img1: CircleImg, text1: "Q2KN-G" },
@@ -43,8 +117,14 @@ export default {
     {
       image: GreenIcon,
       text: "Vermont-Sites",
-      x: 800,
-      y: 500,
+      x:
+        localStorage.getItem("rect3.rect3.dx") !== null
+          ? localStorage.getItem("rect3.rect3.dx")
+          : 800,
+      y:
+        localStorage.getItem("rect3.rect3.dy") !== null
+          ? localStorage.getItem("rect3.rect3.dy")
+          : 500,
       source: 3,
       target: 0,
       circle: { img1: CircleImg, text1: "Q2KN-G" },
@@ -52,8 +132,14 @@ export default {
     {
       image: GreenIcon,
       text: "Massachusetts-Sites",
-      x: 1100,
-      y: 500,
+      x:
+        localStorage.getItem("rect4.rect4.dx") !== null
+          ? localStorage.getItem("rect4.rect4.dx")
+          : 1100,
+      y:
+        localStorage.getItem("rect4.rect4.dy") !== null
+          ? localStorage.getItem("rect4.rect4.dy")
+          : 500,
       source: 4,
       target: 0,
       circle: {
@@ -66,8 +152,14 @@ export default {
     {
       image: GreenIcon,
       text: "California-Sites",
-      x: 1400,
-      y: 500,
+      x:
+        localStorage.getItem("rect5.rect5.dx") !== null
+          ? localStorage.getItem("rect5.rect5.dx")
+          : 1400,
+      y:
+        localStorage.getItem("rect5.rect5.dy") !== null
+          ? localStorage.getItem("rect5.rect5.dy")
+          : 500,
       source: 5,
       target: 0,
       circle: {

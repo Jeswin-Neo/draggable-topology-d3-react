@@ -414,18 +414,22 @@ const SVG = () => {
 
     async function dragged(event, d) {
       //   console.log('event', event);
-      //   console.log('d', d);
+      console.log("d", d);
       if (
         event.sourceEvent.target.id.length > 0 &&
         event.sourceEvent.target.id.split(".").length === 1
       ) {
+        console.log("before", d);
         d.x = event.x;
         d.y = event.y;
+        console.log("after", d);
+
         await setValForAtt(event.sourceEvent.target.id, d, event);
         d3.select(this).attr("x", d.x).attr("y", d.y);
-
+        console.log("|||||", this);
         link
           .filter(function (l) {
+            console.log("{{{{{{{{{{{{{", l.source, d, l.source === d);
             return l.source === d;
           })
           .attr("x1", d.x + 70)
