@@ -416,10 +416,15 @@ const SVG = () => {
         event.sourceEvent.target.id.length > 0 &&
         event.sourceEvent.target.id.split(".").length === 1
       ) {
-        d.x = event.x;
-        d.y = event.y;
-        await setValForAtt(event.sourceEvent.target.id, d, event);
-        d3.select(this).attr("x", d.x).attr("y", d.y);
+        if (event.sourceEvent.target.id === "rect0") {
+          d.x = d.x;
+          d.y = d.y;
+        } else {
+          d.x = event.x;
+          d.y = event.y;
+          await setValForAtt(event.sourceEvent.target.id, d, event);
+          d3.select(this).attr("x", d.x).attr("y", d.y);
+        }
 
         // link
         //   .filter(function (l) {

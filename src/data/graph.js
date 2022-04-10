@@ -174,14 +174,6 @@ export default {
         text5: "Q2KN-73",
         text6: "Q2KN-N",
       },
-      // newCircles: [
-      //   { node: CircleImg, value: "Q2KN-TEST", x: 1410, y: 560 },
-      //   { node: CircleImg, value: "Q2KN-TEST", x: 1450, y: 560 },
-      //   { node: CircleImg, value: "Q2KN-TEST", x: 1490, y: 560 },
-      //   { node: CircleImg, value: "Q2KN-TEST", x: 1530, y: 560 },
-      //   { node: CircleImg, value: "Q2KN-TEST", x: 1570, y: 560 },
-      //   { node: CircleImg, value: "Q2KN-TEST", x: 1610, y: 560 },
-      // ],
     },
   ],
 };
