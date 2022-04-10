@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { createRef, useEffect } from "react";
 import "./SVG.css";
 import * as d3 from "d3";
 import Graph from "./data/graph";
@@ -10,6 +10,7 @@ const SVG = () => {
   const width = 1800;
   const height = 900;
   const navigate = useNavigate();
+  const svgRef = createRef();
   useEffect(() => {
     const username = localStorage.getItem("username");
     const password = localStorage.getItem("password");
@@ -25,7 +26,7 @@ const SVG = () => {
   };
   useEffect(() => {
     const svg = d3
-      .select("div")
+      .select(svgRef.current)
       .append("svg")
       .attr("width", width)
       .attr("height", height);
@@ -732,7 +733,7 @@ const SVG = () => {
   return (
     <div className="svg-container">
       <Button type="submit" label="Logout" onClick={handleLogout} />
-      <div className="svg"></div>
+      <div ref={svgRef}></div>
     </div>
   );
 };
