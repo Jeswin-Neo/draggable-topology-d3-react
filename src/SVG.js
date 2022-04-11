@@ -417,8 +417,7 @@ const SVG = () => {
         event.sourceEvent.target.id.split('.').length === 1
       ) {
         if (event.sourceEvent.target.id === 'rect0') {
-          d.x = d.x;
-          d.y = d.y;
+          return d;
         } else {
           d.x = event.x;
           d.y = event.y;
