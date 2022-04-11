@@ -1,13 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./auth/Login";
-import SVG from "./SVG";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import Login from './auth/Login';
+import SVG from './SVG';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<SVG />} />
+        <Route exact path='/' element={<Navigate to='/login' />} />
+        <Route path='/login' element={<Login />} />
+        <Route exact path='/home' element={<SVG />} />
       </Routes>
     </Router>
   );
