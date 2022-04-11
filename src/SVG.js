@@ -411,8 +411,6 @@ const SVG = () => {
       .text((d) => d?.circle?.text6);
 
     async function dragged(event, d) {
-      //   console.log('event', event);
-      //   console.log('d', d);
       if (
         event.sourceEvent.target.id.length > 0 &&
         event.sourceEvent.target.id.split(".").length === 1
@@ -426,21 +424,6 @@ const SVG = () => {
           await setValForAtt(event.sourceEvent.target.id, d, event);
           d3.select(this).attr("x", d.x).attr("y", d.y);
         }
-
-        // link
-        //   .filter(function (l) {
-        //     return l.source === d;
-        //   })
-        //   .attr("x1", d.x + 70)
-        //   .attr("y1", d.y)
-        //   .filter(await setValForAtt("link1", d, event));
-        // link
-        //   .filter(function (l) {
-        //     return l.target === d;
-        //   })
-        //   .attr("x2", d.x + 50)
-        //   .attr("y2", d.y + 10);
-        // .filter(await setValForAtt('link2', d, event));
 
         if (event.sourceEvent.target.id === "rect0") {
           link
